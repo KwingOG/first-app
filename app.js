@@ -9,6 +9,7 @@ const path = require('path');
 const rootDir = require('./utilities/path');
 const adminRoutes = require('./routes/admin.js');
 const shopRoutes = require('./routes/shop.js');
+const errorControllers = require('./controllers/error');
 //Declaro app con el method express() que trae un obj
 const app = express();
 
@@ -18,15 +19,14 @@ app.set('view engine', 'ejs');
 
 //Parser
 app.use(bodyParser.urlencoded({extended:false}));
+
 //Static method for presenting CSS
 app.use(express.static(path.join(rootDir, 'public')));
 
 
 //Routes
-app.use('/admin', adminRoutes.routes);
+app.use('/admin', adminRoutes);
 app.use(shopRoutes);
-app.use((req, res, next) => {
-	res.status(404).render('404', {pageTitle: 'Page not found', path: '' })
-});
+app.use(errorControllers.get404);
 //Server
 app.listen(3000);
