@@ -17,7 +17,7 @@ const rootDir = require('../utilities/path.js');
 
 module.exports = class Product{
 	constructor(t){
-		this.title = t
+		this.title = t;
 	}
 
 	save() {
